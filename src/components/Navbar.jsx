@@ -7,31 +7,26 @@ function Navbar() {
   const { darkMode, toggleTheme } = useContext(ThemeContext);
   const { cart } = useContext(CartContext);
 
-  // Total items in cart
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-
-  // State to trigger animation
   const [animate, setAnimate] = useState(false);
 
-  // Trigger animation when totalItems changes
   useEffect(() => {
     if (totalItems > 0) {
       setAnimate(true);
-      const timeout = setTimeout(() => setAnimate(false), 300); // animation lasts 300ms
+      const timeout = setTimeout(() => setAnimate(false), 300);
       return () => clearTimeout(timeout);
     }
   }, [totalItems]);
 
   return (
-    <nav className="bg-white dark:bg-black dark:text-white text-black px-8 py-4 flex justify-between items-center shadow-md">
+    <nav className="bg-white dark:bg-black dark:text-white text-black px-6 py-4 flex flex-col sm:flex-row justify-between items-center shadow-md gap-4 sm:gap-0">
       <h1 className="text-2xl font-bold">Casiis Commerce Company</h1>
 
-      <div className="flex items-center space-x-6">
-        <Link to="/">Home</Link>
-        <Link to="/products">Products</Link>
+      <div className="flex flex-col sm:flex-row items-center sm:space-x-6 space-y-2 sm:space-y-0">
+        <Link to="/" className="hover:text-red-500">Home</Link>
+        <Link to="/products" className="hover:text-red-500">Products</Link>
 
-        {/* Cart link with animated counter */}
-        <Link to="/cart" className="relative">
+        <Link to="/cart" className="relative hover:text-red-500">
           Cart
           {totalItems > 0 && (
             <span
